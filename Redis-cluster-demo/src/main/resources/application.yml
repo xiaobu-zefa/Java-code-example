@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: redis-cluster-example-application
+  redis:
+    cluster:
+      nodes:
+        #地址要和redis配置中bind地址一致
+        - 152.136.116.78:6381
+        - 152.136.116.78:6382
+        - 152.136.116.78:6383
+    password: 19971123Zh_
