@@ -12,6 +12,8 @@
         <module>Redis-cluster-demo</module>
         <module>Cloud-platform-gateway-demo</module>
         <module>User-module-demo</module>
+        <module>MQ-demo</module>
+        <module>Nio-demo</module>
     </modules>
 
     <properties>
