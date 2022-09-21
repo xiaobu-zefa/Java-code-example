@@ -1,5 +1,6 @@
 package site.xiaobu.example.nio.selector;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 
 import java.net.InetSocketAddress;
@@ -8,6 +9,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -39,6 +41,10 @@ public class SelectorDemo0 {
                         handleReadable(selectionKey);
                     }
 
+                    if (selectionKey.isWritable()) {
+                        handleWritable(selectionKey);
+                    }
+
                     iterator.remove();
                 }
             }
@@ -49,7 +55,7 @@ public class SelectorDemo0 {
     public static void handleAcceptable(ServerSocketChannel serverSocketChannel, Selector selector) {
         SocketChannel socketChannel = serverSocketChannel.accept();
         socketChannel.configureBlocking(false);
-        socketChannel.register(selector, SelectionKey.OP_READ);
+        socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 
         System.out.println("[" + socketChannel.getRemoteAddress() + "] Connected ...");
     }
@@ -61,19 +67,30 @@ public class SelectorDemo0 {
 
         int len = socketChannel.read(buffer);
 
+        StringBuilder builder = new StringBuilder();
+
         while (len > 0) {
             buffer.flip();
 
-            while (buffer.hasRemaining()) {
-                System.out.print((char) buffer.get());
-            }
+            builder.append(new String(buffer.array(), 0, buffer.limit(), StandardCharsets.UTF_8));
 
             buffer.clear();
 
             len = socketChannel.read(buffer);
         }
 
-        System.out.println("");
-        socketChannel.close();
+        String content = builder.toString();
+        System.out.println(content);
+
+        if (StrUtil.equals("quit", content)) {
+            socketChannel.write(ByteBuffer.wrap("bye bye!".getBytes(StandardCharsets.UTF_8)));
+
+            socketChannel.close();
+        }
+    }
+
+    @SneakyThrows
+    private static void handleWritable(SelectionKey selectionKey) {
+        // System.out.println("有 Writeable 事件 ...");
     }
 }
