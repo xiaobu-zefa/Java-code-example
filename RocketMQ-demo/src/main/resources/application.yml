@@ -1,0 +1,5 @@
+rocketmq:
+  name-server: 10.0.11.190:9876
+  consumer:
+    group: OMS_SYNC_OF_ORDER_DATA_GROUP
+    topic: OMS_SYNC_OF_ORDER_DATA_TOPIC
