@@ -1,0 +1,11 @@
+spring:
+  # rabbitmq配置
+  rabbitmq:
+    #   mq地址
+    host: 152.136.116.78
+    #   mq端口号
+    port: 5672
+    #   mq账号
+    username: admin
+    #   mq密码
+    password: 19971123Zh_

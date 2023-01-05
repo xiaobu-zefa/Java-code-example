@@ -14,6 +14,8 @@
         <module>User-module-demo</module>
         <module>MQ-demo</module>
         <module>Nio-demo</module>
+        <module>Elasticsearch-demo</module>
+        <module>RocketMQ-demo</module>
     </modules>
 
     <properties>

@@ -1,0 +1,6 @@
+spring:
+  elasticsearch:
+    rest:
+      password: 39r0EWlCVkxD3AapYuEw
+      username: elastic
+      uris: http://47.92.48.65:8020
